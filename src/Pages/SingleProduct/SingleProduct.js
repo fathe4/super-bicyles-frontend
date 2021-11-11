@@ -35,13 +35,23 @@ const SingleProduct = () => {
         const state = stateRef.current.value
         const zip = zipRef.current.value
         const phone = phoneRef.current.value
-        const newOrder = { name, email, address, address2, phone, city, state, zip }
+        const userEmail = user.email
+        const status = 'Pending'
+        const date = new Date().toDateString()
+        const newOrder = { name, email, userEmail, address, address2, date, phone, city, state, zip, status, product: { ...findProduct } }
 
         setOrderDetails(newOrder)
     }
 
     const handlePlaceOrder = (e) => {
         e.preventDefault()
+        fetch('http://localhost:5000/dashboard/orders', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(orderDetails)
+        }).then()
         console.log(orderDetails);
     }
 

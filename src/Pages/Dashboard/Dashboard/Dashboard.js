@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import { Nav } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useRouteMatch, Switch, Route } from 'react-router-dom';
 import UseAuth from '../../../hooks/UseAuth';
+import AddProducts from '../AddProducts/AddProducts';
+import DashboardHome from '../DashboardHome/DashboardHome';
+import ManageAllOrders from '../ManageAllOrders/ManageAllOrders';
+import MyOrders from '../MyOrders/MyOrders';
 import './Dashboard.css'
 
 const Dashboard = () => {
     const [isActive, setActive] = useState(true);
     const { user, logout } = UseAuth()
+    const { url, path } = useRouteMatch()
 
     console.log(user);
 
@@ -38,11 +43,12 @@ const Dashboard = () => {
                         </Nav.Link>
                         <span class="tooltip">Dashboard</span>
                     </li>
+
                     <li>
-                        <Nav.Link as={Link} to="/dashboard">
+                        <Link to={`${url}/myOrders`}>
                             <i class='bx bx-user'></i>
                             <span class="links_name">My Orders</span>
-                        </Nav.Link>
+                        </Link>
                         <span class="tooltip">My Orders</span>
                     </li>
                     <li>
@@ -53,14 +59,14 @@ const Dashboard = () => {
                         <span class="tooltip">Pay</span>
                     </li>
                     <li>
-                        <Nav.Link as={Link} to="/dashboard">
+                        <Nav.Link as={Link} to={`${url}/manageAllOrders`}>
                             <i class='bx bx-user'></i>
                             <span class="links_name">Manage All Orders</span>
                         </Nav.Link>
                         <span class="tooltip">Manage All Orders</span>
                     </li>
                     <li>
-                        <Nav.Link as={Link} to="/dashboard">
+                        <Nav.Link as={Link} to={`${url}/addProducts`}>
                             <i class='bx bx-user'></i>
                             <span class="links_name">Add A Product</span>
                         </Nav.Link>
@@ -111,15 +117,21 @@ const Dashboard = () => {
                 </div>
             </div>
             <div class="home_content">
-                <div class="text">Dashboard</div>
-                <p>Nullam vulputate ultrices tellus et bibendum. Integer iaculis pharetra ligula, eget condimentum nunc malesuada nec. Nullam eu lorem sed tellus condimentum aliquam in in eros. Maecenas sagittis, justo quis blandit aliquet, sem felis interdum elit, ac dictum purus mauris nec mauris. In hac habitasse platea dictumst. Morbi placerat nec lorem in feugiat. In tristique laoreet diam, vel vulputate mi placerat id. Vivamus at quam rutrum, finibus tortor laoreet, venenatis sem. Nam vitae libero ultrices, tristique ligula non, sagittis elit. Vestibulum sed turpis nec eros convallis viverra. Maecenas nunc arcu, pharetra bibendum feugiat ut, consequat quis massa. Vivamus aliquet eros a efficitur fringilla. Aenean auctor ut mi ut vestibulum. Suspendisse a turpis id nisi faucibus efficitur. Sed ipsum urna, ultricies eget justo vitae, hendrerit malesuada mauris. Donec a turpis malesuada, euismod massa id, ultrices ex.
-                </p>
-                <p>Nullam vulputate ultrices tellus et bibendum. Integer iaculis pharetra ligula, eget condimentum nunc malesuada nec. Nullam eu lorem sed tellus condimentum aliquam in in eros. Maecenas sagittis, justo quis blandit aliquet, sem felis interdum elit, ac dictum purus mauris nec mauris. In hac habitasse platea dictumst. Morbi placerat nec lorem in feugiat. In tristique laoreet diam, vel vulputate mi placerat id. Vivamus at quam rutrum, finibus tortor laoreet, venenatis sem. Nam vitae libero ultrices, tristique ligula non, sagittis elit. Vestibulum sed turpis nec eros convallis viverra. Maecenas nunc arcu, pharetra bibendum feugiat ut, consequat quis massa. Vivamus aliquet eros a efficitur fringilla. Aenean auctor ut mi ut vestibulum. Suspendisse a turpis id nisi faucibus efficitur. Sed ipsum urna, ultricies eget justo vitae, hendrerit malesuada mauris. Donec a turpis malesuada, euismod massa id, ultrices ex.
-                </p>
-                <p>Nullam vulputate ultrices tellus et bibendum. Integer iaculis pharetra ligula, eget condimentum nunc malesuada nec. Nullam eu lorem sed tellus condimentum aliquam in in eros. Maecenas sagittis, justo quis blandit aliquet, sem felis interdum elit, ac dictum purus mauris nec mauris. In hac habitasse platea dictumst. Morbi placerat nec lorem in feugiat. In tristique laoreet diam, vel vulputate mi placerat id. Vivamus at quam rutrum, finibus tortor laoreet, venenatis sem. Nam vitae libero ultrices, tristique ligula non, sagittis elit. Vestibulum sed turpis nec eros convallis viverra. Maecenas nunc arcu, pharetra bibendum feugiat ut, consequat quis massa. Vivamus aliquet eros a efficitur fringilla. Aenean auctor ut mi ut vestibulum. Suspendisse a turpis id nisi faucibus efficitur. Sed ipsum urna, ultricies eget justo vitae, hendrerit malesuada mauris. Donec a turpis malesuada, euismod massa id, ultrices ex.
-                </p>
-                <p>Nullam vulputate ultrices tellus et bibendum. Integer iaculis pharetra ligula, eget condimentum nunc malesuada nec. Nullam eu lorem sed tellus condimentum aliquam in in eros. Maecenas sagittis, justo quis blandit aliquet, sem felis interdum elit, ac dictum purus mauris nec mauris. In hac habitasse platea dictumst. Morbi placerat nec lorem in feugiat. In tristique laoreet diam, vel vulputate mi placerat id. Vivamus at quam rutrum, finibus tortor laoreet, venenatis sem. Nam vitae libero ultrices, tristique ligula non, sagittis elit. Vestibulum sed turpis nec eros convallis viverra. Maecenas nunc arcu, pharetra bibendum feugiat ut, consequat quis massa. Vivamus aliquet eros a efficitur fringilla. Aenean auctor ut mi ut vestibulum. Suspendisse a turpis id nisi faucibus efficitur. Sed ipsum urna, ultricies eget justo vitae, hendrerit malesuada mauris. Donec a turpis malesuada, euismod massa id, ultrices ex.
-                </p>
+
+                <Switch>
+                    <Route exact path={`${path}`}>
+                        <DashboardHome></DashboardHome>
+                    </Route>
+                    <Route path={`${path}/myOrders`}>
+                        <MyOrders></MyOrders>
+                    </Route>
+                    <Route path={`${path}/addProducts`}>
+                        <AddProducts></AddProducts>
+                    </Route>
+                    <Route path={`${path}/manageAllOrders`}>
+                        <ManageAllOrders></ManageAllOrders>
+                    </Route>
+                </Switch>
             </div>
         </div>
     );

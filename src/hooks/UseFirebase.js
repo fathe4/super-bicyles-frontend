@@ -83,6 +83,7 @@ const UseFirebase = () => {
         logout,
         signIn,
         isLoading,
+        setIsLoading,
         user,
         error
 
