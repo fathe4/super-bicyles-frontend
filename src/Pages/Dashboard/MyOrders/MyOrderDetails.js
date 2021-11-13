@@ -1,7 +1,37 @@
 import React from 'react';
 import { ButtonGroup, Button } from 'react-bootstrap';
+import UseAuth from '../../../hooks/UseAuth';
+import useUserOrders from '../../../hooks/useUserOrders';
 
 const MyOrderDetails = ({ order, number }) => {
+    const { userOrders, setUserOrders } = useUserOrders()
+    const { setIsLoading } = UseAuth()
+
+
+
+    // DELETE ORDER
+    const deleteOrder = (id) => {
+        if (window.confirm('Are you sure you want to delete?')) {
+            setIsLoading(true)
+            fetch(`http://localhost:5000/dashboard/orders/${id}`, {
+                method: 'DELETE'
+            }).then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    if (data.deletedCount) {
+                        alert('Order Deleted')
+                        const remainingOrders = userOrders.filter(order => order._id !== id)
+                        setUserOrders(remainingOrders)
+                    }
+
+                })
+                .finally(() => setIsLoading(false))
+        } else {
+            fetch(`http://localhost:5000/dashboard/orders`)
+                .then(res => res.json())
+                .then(data => setUserOrders(data))
+        }
+    }
     return (
         <tr>
             <td>{number + 1}</td>
@@ -13,7 +43,7 @@ const MyOrderDetails = ({ order, number }) => {
             <td>{order.status}</td>
             <td>
                 <ButtonGroup size="sm">
-                    <Button variant='danger'>Cancel</Button>
+                    <Button variant='danger' onClick={() => deleteOrder(order._id)}>Cancel</Button>
                 </ButtonGroup>
             </td>
 

@@ -8,25 +8,28 @@ FirebaseInitialization()
 const UseFirebase = () => {
     const [user, setUser] = useState({})
     const [error, setError] = useState('')
+    const [admin, setAdmin] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
     const auth = getAuth()
 
     // REGISTER WITH EMAIL AND PASSWORD
-    const RegisterUser = (email, password, name) => {
+    const RegisterUser = (email, password, name, history) => {
         setIsLoading(true)
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                // // Signed in 
-                // const user = userCredential.user;
-                // // ...
+
+                const newUser = { email, displayName: name };
+                setUser(newUser);
+
+                addUserToDB(email, name)
                 setError('')
-                // const newUser = { email, displayName: name }
-                // setUser(newUser)
+
                 updateProfile(auth.currentUser, {
                     displayName: name
                 }).then(() => {
                 }).catch((error) => {
                 });
+                history.replace('/');
             })
             .catch((error) => {
 
@@ -34,6 +37,18 @@ const UseFirebase = () => {
                 setError(errorMessage)
             }).finally(() => setIsLoading(false));
     }
+
+    // CHECK ADMIN 
+    useEffect(() => {
+        // fetch(`http://localhost:5000/users/admin@admin.com`)
+        fetch(`http://localhost:5000/users/${user.email}`)
+            .then(res => res.json())
+            .then(data => { setAdmin(data.admin); })
+
+    }, [user.email])
+
+    console.log('tt', user, admin);
+
     // SIGN IN WITH USER AND EMAIL
     const signIn = (email, password, location, history) => {
         setIsLoading(true)
@@ -42,6 +57,7 @@ const UseFirebase = () => {
                 // Signed in 
                 // const user = userCredential.user;
                 // setUser(user)
+                addUserToDB(user.email, user.displayName,);
                 const destination = location?.state?.from || '/'
                 history.replace(destination)
                 setError('')
@@ -77,6 +93,25 @@ const UseFirebase = () => {
             setError(error.message)
         });
     }
+
+    // ADD USER TO DATABASE
+    const addUserToDB = (email, name) => {
+
+        const user = { name, email, roll: 'user' }
+
+        fetch('http://localhost:5000/addUser', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then()
+
+    }
+
+
+    console.log(admin);
 
     return {
         RegisterUser,

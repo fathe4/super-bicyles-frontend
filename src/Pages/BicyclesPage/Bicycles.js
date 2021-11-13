@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
-import NewArrivalsProduct from '../NewArrivalsProduct/NewArrivalsProduct';
+import NewArrivalsProduct from '../HomePage/NewArrivalsProduct/NewArrivalsProduct';
 
-const NewArrivalsProducts = () => {
+
+const Bicycles = () => {
     const [products, setProducts] = useState([])
 
     useEffect(() => {
         fetch('http://localhost:5000/products')
             .then(res => res.json())
-            .then(data => setProducts(data.slice(0, 6)))
+            .then(data => setProducts(data))
     }, [])
 
     // console.log(products);
@@ -16,7 +17,7 @@ const NewArrivalsProducts = () => {
     return (
         <div>
             <Container>
-                <h2 className='text-center text-uppercase spcace-tb'>New arrivals <span className='primary-color'>Products</span></h2>
+                <h2 className='text-center text-uppercase spcace-tb'>All <span className='primary-color'>Bicycles</span></h2>
                 <Row xs={1} md={3} className="g-4">
 
 
@@ -28,4 +29,4 @@ const NewArrivalsProducts = () => {
     );
 };
 
-export default NewArrivalsProducts;
+export default Bicycles;

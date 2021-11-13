@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import UseAuth from '../../../hooks/UseAuth';
 
 const Register = () => {
     const [newUser, setNewUser] = useState({})
     const { RegisterUser, error, user } = UseAuth()
+    const history = useHistory()
     // console.log(newUser);
 
     const handleValues = (e) => {
         const field = e.target.name;
         const value = e.target.value
         const user = { ...newUser }
+
         user[field] = value
         setNewUser(user)
 
@@ -19,8 +21,8 @@ const Register = () => {
 
     const handleRegister = (e) => {
         e.preventDefault()
-        RegisterUser(newUser.email, newUser.password, newUser.name)
-        // console.log(newUser.name, newUser.email, newUser.password);
+        RegisterUser(newUser.email, newUser.password, newUser.name, history)
+        // console.log('user name', newUser.name, newUser.email, newUser.password);
 
     }
 

@@ -2,18 +2,22 @@ import React, { useState } from 'react';
 import { Nav } from 'react-bootstrap';
 import { Link, useRouteMatch, Switch, Route } from 'react-router-dom';
 import UseAuth from '../../../hooks/UseAuth';
+import AdminRoute from '../../LoginRegister/AdminRoute/AdminRoute';
 import AddProducts from '../AddProducts/AddProducts';
-import DashboardHome from '../DashboardHome/DashboardHome';
+import AddReview from '../AddReview/AddReview';
+import MakeAdmin from '../MakeAdmin/MakeAdmin';
+// import DashboardHome from '../DashboardHome/DashboardHome';
 import ManageAllOrders from '../ManageAllOrders/ManageAllOrders';
+import ManageProducts from '../ManageProducts/ManageProducts';
 import MyOrders from '../MyOrders/MyOrders';
 import './Dashboard.css'
 
 const Dashboard = () => {
     const [isActive, setActive] = useState(true);
-    const { user, logout } = UseAuth()
+    const { user, logout, admin } = UseAuth()
     const { url, path } = useRouteMatch()
 
-    console.log(user);
+    // console.log(admin);
 
 
     const toggleClass = () => {
@@ -36,13 +40,13 @@ const Dashboard = () => {
                         <input type="text" placeholder="Search..." />
                         <span class="tooltip">Search</span>
                     </li> */}
-                    <li>
+                    {/* <li>
                         <Nav.Link as={Link} to="/dashboard">
                             <i class='bx bx-grid-alt'></i>
                             <span class="links_name">Dashboard</span>
                         </Nav.Link>
                         <span class="tooltip">Dashboard</span>
-                    </li>
+                    </li> */}
 
                     <li>
                         <Link to={`${url}/myOrders`}>
@@ -59,41 +63,44 @@ const Dashboard = () => {
                         <span class="tooltip">Pay</span>
                     </li>
                     <li>
+                        <Nav.Link as={Link} to={`${url}/addReview`}>
+                            <i class='bx bx-user'></i>
+                            <span class="links_name">Review</span>
+                        </Nav.Link>
+                        <span class="tooltip">Review</span>
+                    </li>
+
+
+                    {user && <><li>
                         <Nav.Link as={Link} to={`${url}/manageAllOrders`}>
                             <i class='bx bx-user'></i>
                             <span class="links_name">Manage All Orders</span>
                         </Nav.Link>
                         <span class="tooltip">Manage All Orders</span>
                     </li>
-                    <li>
-                        <Nav.Link as={Link} to={`${url}/addProducts`}>
-                            <i class='bx bx-user'></i>
-                            <span class="links_name">Add A Product</span>
-                        </Nav.Link>
-                        <span class="tooltip">Add A Product</span>
-                    </li>
-                    <li>
-                        <Nav.Link as={Link} to="/dashboard">
-                            <i class='bx bx-user'></i>
-                            <span class="links_name">Make Admin</span>
-                        </Nav.Link>
-                        <span class="tooltip">Make Admin</span>
-                    </li>
-                    <li>
-                        <Nav.Link as={Link} to="/dashboard">
-                            <i class='bx bx-user'></i>
-                            <span class="links_name">Manage Products</span>
-                        </Nav.Link>
-                        <span class="tooltip">Manage Products</span>
-                    </li>
+                        <li>
+                            <Nav.Link as={Link} to={`${url}/addProducts`}>
+                                <i class='bx bx-user'></i>
+                                <span class="links_name">Add A Product</span>
+                            </Nav.Link>
+                            <span class="tooltip">Add A Product</span>
+                        </li>
+                        <li>
+                            <Nav.Link as={Link} to={`${url}/makeAdmin`}>
+                                <i class='bx bx-user'></i>
+                                <span class="links_name">Make Admin</span>
+                            </Nav.Link>
+                            <span class="tooltip">Make Admin</span>
+                        </li>
+                        <li>
+                            <Nav.Link as={Link} to={`${url}/manageProducts`}>
+                                <i class='bx bx-user'></i>
+                                <span class="links_name">Manage Products</span>
+                            </Nav.Link>
+                            <span class="tooltip">Manage Products</span>
+                        </li> </>}
 
-                    <li>
-                        <Nav.Link as={Link} to="/dashboard">
-                            <i class='bx bx-user'></i>
-                            <span class="links_name">Review</span>
-                        </Nav.Link>
-                        <span class="tooltip">Review</span>
-                    </li>
+
                     <li>
                         <Nav.Link onClick={logout}>
                             <i class='bx bx-user'></i>
@@ -119,10 +126,10 @@ const Dashboard = () => {
             <div class="home_content">
 
                 <Switch>
-                    <Route exact path={`${path}`}>
-                        <DashboardHome></DashboardHome>
-                    </Route>
-                    <Route path={`${path}/myOrders`}>
+                    {/* <Route exact path={`${path}`}>
+                        <MyOrders></MyOrders>
+                    </Route> */}
+                    <Route exact path={`${path}/myOrders`}>
                         <MyOrders></MyOrders>
                     </Route>
                     <Route path={`${path}/addProducts`}>
@@ -130,6 +137,15 @@ const Dashboard = () => {
                     </Route>
                     <Route path={`${path}/manageAllOrders`}>
                         <ManageAllOrders></ManageAllOrders>
+                    </Route>
+                    <Route path={`${path}/manageProducts`}>
+                        <ManageProducts></ManageProducts>
+                    </Route>
+                    <Route path={`${path}/addReview`}>
+                        <AddReview></AddReview>
+                    </Route>
+                    <Route path={`${path}/makeAdmin`}>
+                        <MakeAdmin></MakeAdmin>
                     </Route>
                 </Switch>
             </div>
