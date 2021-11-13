@@ -45,7 +45,7 @@ const AddProducts = () => {
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Price</Form.Label>
-                    <Form.Control onBlur={handleOnBlur} name='number' type="text" placeholder="Price" />
+                    <Form.Control onBlur={handleOnBlur} name='price' type="text" placeholder="Price" />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                     <Form.Label>Product Description</Form.Label>

@@ -17,7 +17,7 @@ const NewArrivalsProduct = (props) => {
                     </Card.Text>
                 </Card.Body>
                 <Card.Footer className='d-flex justify-content-between align-items-center'>
-                    <h6>${price}</h6>
+                    <h6>${parseInt(price)}</h6>
                     <Link to={`/products/${_id}`}><Button variant="success" className='shadow' >Buy Now</Button></Link>
                 </Card.Footer>
             </Card>
