@@ -129,7 +129,7 @@ const Dashboard = () => {
                     {/* <Route exact path={`${path}`}>
                         <MyOrders></MyOrders>
                     </Route> */}
-                    <Route exact path={`${path}/myOrders`}>
+                    <Route path={`${path}/myOrders`}>
                         <MyOrders></MyOrders>
                     </Route>
                     <Route path={`${path}/addProducts`}>

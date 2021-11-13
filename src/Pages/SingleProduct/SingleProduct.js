@@ -11,7 +11,6 @@ const SingleProduct = () => {
     const [findProduct, setFindProduct] = useState({})
     const [orderDetails, setOrderDetails] = useState({})
 
-
     const nameRef = useRef()
     const emailRef = useRef()
     const addressRef = useRef()
@@ -22,8 +21,9 @@ const SingleProduct = () => {
     const zipRef = useRef()
 
     useEffect(() => {
-        const searchProduct = products.find(product => product.id === parseFloat(productId))
+        const searchProduct = products.find(product => product._id === productId)
         setFindProduct(searchProduct)
+        // console.log(searchProduct);
     }, [productId, products])
 
     const handleFields = (e) => {
@@ -45,15 +45,35 @@ const SingleProduct = () => {
 
     const handlePlaceOrder = (e) => {
         e.preventDefault()
-        fetch('http://localhost:5000/dashboard/orders', {
+        fetch('https://polar-savannah-40370.herokuapp.com/dashboard/orders', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
             },
             body: JSON.stringify(orderDetails)
-        }).then()
-        console.log(orderDetails);
+        }).then(res => res.json())
+            .then(data => {
+                if (data.insertedId) {
+                    alert('Order Successfully added')
+                }
+            })
+
+
     }
+
+    const clearForm = () => {
+        nameRef.current.value = ''
+        emailRef.current.value = ''
+        addressRef.current.value = ''
+        address2Ref.current.value = ''
+        cityRef.current.value = ''
+        stateRef.current.value = ''
+        zipRef.current.value = ''
+        phoneRef.current.value = ''
+        user.email = ''
+    }
+
+
 
     return (
 
@@ -63,7 +83,7 @@ const SingleProduct = () => {
                 <Row md={2} xs={1} className="g-4">
                     <Col>
                         <Card className='border-0 shadow'>
-                            <Card.Img variant="top" src={findProduct?.img} className='w-75 mx-auto p-3' />
+                            <Card.Img variant="top" src={findProduct?.url} className='w-75 mx-auto p-3' />
                             <Card.Body>
                                 <Card.Title>{findProduct?.title}</Card.Title>
                                 <Card.Text>

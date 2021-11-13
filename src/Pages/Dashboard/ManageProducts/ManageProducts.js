@@ -5,7 +5,7 @@ import ManageProductDetails from './ManageProductDetails';
 const ManageProducts = () => {
     const [products, setProducts] = useState([])
     useEffect(() => {
-        fetch('http://localhost:5000/products')
+        fetch('https://polar-savannah-40370.herokuapp.com/products')
             .then(res => res.json())
             .then(data => setProducts(data.slice(0, 6)))
     }, [])

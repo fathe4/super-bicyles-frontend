@@ -8,7 +8,7 @@ const ManageProductDetails = ({ product, number }) => {
     const { setIsLoading } = UseAuth()
 
     useEffect(() => {
-        fetch('http://localhost:5000/products')
+        fetch('https://polar-savannah-40370.herokuapp.com/products')
             .then(res => res.json())
             .then(data => setProducts(data.slice(0, 6)))
     }, [])
@@ -17,7 +17,7 @@ const ManageProductDetails = ({ product, number }) => {
     const deleteOrder = (id) => {
         if (window.confirm('Are you sure you want to delete?')) {
             setIsLoading(true)
-            fetch(`http://localhost:5000/dashboard/product/${id}`, {
+            fetch(`https://polar-savannah-40370.herokuapp.com/dashboard/product/${id}`, {
                 method: 'DELETE'
             }).then(res => res.json())
                 .then(data => {
@@ -31,7 +31,7 @@ const ManageProductDetails = ({ product, number }) => {
                 })
                 .finally(() => setIsLoading(false))
         } else {
-            fetch(`http://localhost:5000/dashboard/orders`)
+            fetch(`https://polar-savannah-40370.herokuapp.com/dashboard/orders`)
                 .then(res => res.json())
                 .then(data => setProducts(data))
         }
@@ -40,7 +40,7 @@ const ManageProductDetails = ({ product, number }) => {
 
         <tr>
             <td>{number + 1}</td>
-            <td><img src={product.img} alt="" width='40' /></td>
+            <td><img src={product.url} alt="" width='40' /></td>
             <td>{product.title.slice(0, 80)}...</td>
             <td>{product.price}</td>
             <td>

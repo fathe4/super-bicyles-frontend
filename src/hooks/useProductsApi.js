@@ -4,7 +4,7 @@ const useProductsApi = () => {
     const [products, setProduct] = useState([])
 
     useEffect(() => {
-        fetch('/fakeData.json')
+        fetch('https://polar-savannah-40370.herokuapp.com/products')
             .then(res => res.json())
             .then(data => {
 

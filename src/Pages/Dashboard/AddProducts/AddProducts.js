@@ -3,11 +3,11 @@ import { Button, Form } from 'react-bootstrap';
 
 const AddProducts = () => {
     const [newProduct, setNewProduct] = useState({})
-
+    let value;
 
     const handleOnBlur = (e) => {
         const field = e.target.name
-        const value = e.target.value
+        value = e.target.value
         const newProductDetails = { ...newProduct }
         newProductDetails[field] = value
         setNewProduct(newProductDetails)
@@ -16,13 +16,18 @@ const AddProducts = () => {
     const handleAddProduct = (e) => {
         e.preventDefault()
         console.log(newProduct);
-        fetch('http://localhost:5000/dashboard/addProduct', {
+        fetch('https://polar-savannah-40370.herokuapp.com/dashboard/addProduct', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
             },
             body: JSON.stringify(newProduct)
-        }).then()
+        }).then(res => res.json())
+            .then(data => {
+                if (data.insertedId) {
+                    alert('Product Added')
+                }
+            })
     }
 
     return (
@@ -40,7 +45,7 @@ const AddProducts = () => {
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Price</Form.Label>
-                    <Form.Control onBlur={handleOnBlur} name='price' type="number" placeholder="Price" />
+                    <Form.Control onBlur={handleOnBlur} name='number' type="text" placeholder="Price" />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                     <Form.Label>Product Description</Form.Label>

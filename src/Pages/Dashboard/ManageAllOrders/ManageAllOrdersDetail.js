@@ -14,7 +14,7 @@ const ManageAllORdersDetail = ({ order, number }) => {
     const deleteOrder = (id) => {
         if (window.confirm('Are you sure you want to delete?')) {
             setIsLoading(true)
-            fetch(`http://localhost:5000/dashboard/orders/${id}`, {
+            fetch(`https://polar-savannah-40370.herokuapp.com/dashboard/orders/${id}`, {
                 method: 'DELETE'
             }).then(res => res.json())
                 .then(data => {
@@ -28,7 +28,7 @@ const ManageAllORdersDetail = ({ order, number }) => {
                 })
                 .finally(() => setIsLoading(false))
         } else {
-            fetch(`http://localhost:5000/dashboard/orders`)
+            fetch(`https://polar-savannah-40370.herokuapp.com/dashboard/orders`)
                 .then(res => res.json())
                 .then(data => setUserOrders(data))
         }
@@ -37,7 +37,7 @@ const ManageAllORdersDetail = ({ order, number }) => {
     // UPDATE ORDER STATUS
     const updateStatus = (id) => {
         const updateStatus = { status: 'Shipped' }
-        fetch(`http://localhost:5000/dashboard/orders/${order._id}`, {
+        fetch(`https://polar-savannah-40370.herokuapp.com/dashboard/orders/${order._id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'

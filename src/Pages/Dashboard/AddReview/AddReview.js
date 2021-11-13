@@ -15,13 +15,18 @@ const AddReview = () => {
     const handleAddReview = (e) => {
         e.preventDefault()
         console.log(newReview);
-        fetch('http://localhost:5000/dashboard/reviews', {
+        fetch('https://polar-savannah-40370.herokuapp.com/dashboard/reviews', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
             },
             body: JSON.stringify(newReview)
-        }).then()
+        }).then(res => res.json())
+            .then(data => {
+                if (data.insertedId) {
+                    alert('Review Added')
+                }
+            })
     }
     return (
         <div className='container'>

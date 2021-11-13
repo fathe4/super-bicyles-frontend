@@ -40,8 +40,8 @@ const UseFirebase = () => {
 
     // CHECK ADMIN 
     useEffect(() => {
-        // fetch(`http://localhost:5000/users/admin@admin.com`)
-        fetch(`http://localhost:5000/users/${user.email}`)
+        // fetch(`https://polar-savannah-40370.herokuapp.com/users/admin@admin.com`)
+        fetch(`https://polar-savannah-40370.herokuapp.com/users/${user.email}`)
             .then(res => res.json())
             .then(data => { setAdmin(data.admin); })
 
@@ -99,7 +99,7 @@ const UseFirebase = () => {
 
         const user = { name, email, roll: 'user' }
 
-        fetch('http://localhost:5000/addUser', {
+        fetch('https://polar-savannah-40370.herokuapp.com/addUser', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

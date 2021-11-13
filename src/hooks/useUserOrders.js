@@ -7,7 +7,7 @@ const useUserOrders = () => {
 
     useEffect(() => {
         // isLoading(true)
-        fetch(`http://localhost:5000/dashboard/orders`)
+        fetch(`https://polar-savannah-40370.herokuapp.com/dashboard/orders`)
             .then(res => res.json())
             .then(data => setUserOrders(data))
         // .finally(() => isLoading(false))

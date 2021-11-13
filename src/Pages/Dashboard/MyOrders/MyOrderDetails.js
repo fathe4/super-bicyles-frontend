@@ -13,7 +13,7 @@ const MyOrderDetails = ({ order, number }) => {
     const deleteOrder = (id) => {
         if (window.confirm('Are you sure you want to delete?')) {
             setIsLoading(true)
-            fetch(`http://localhost:5000/dashboard/orders/${id}`, {
+            fetch(`https://polar-savannah-40370.herokuapp.com/dashboard/orders/${id}`, {
                 method: 'DELETE'
             }).then(res => res.json())
                 .then(data => {
@@ -27,7 +27,7 @@ const MyOrderDetails = ({ order, number }) => {
                 })
                 .finally(() => setIsLoading(false))
         } else {
-            fetch(`http://localhost:5000/dashboard/orders`)
+            fetch(`https://polar-savannah-40370.herokuapp.com/dashboard/orders`)
                 .then(res => res.json())
                 .then(data => setUserOrders(data))
         }

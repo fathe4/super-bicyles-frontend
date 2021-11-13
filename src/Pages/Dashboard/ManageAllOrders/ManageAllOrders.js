@@ -9,7 +9,7 @@ const ManageAllOrders = () => {
     const { user } = UseAuth()
 
     useEffect(() => {
-        fetch(`http://localhost:5000/dashboard/orders`)
+        fetch(`https://polar-savannah-40370.herokuapp.com/dashboard/orders`)
             .then(res => res.json())
             .then(data => setOrders(data))
     }, [user.email])
