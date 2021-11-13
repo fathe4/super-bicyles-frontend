@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# Live site link: https://super-bicycles.web.app/
 
 1. This an online bicycle shop which is created by React Js
 2. User can manage their orders from their dashboard, also they can add Review
