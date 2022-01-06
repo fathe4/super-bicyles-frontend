@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Nav } from 'react-bootstrap';
+import { Nav, Spinner } from 'react-bootstrap';
 import { Link, useRouteMatch, Switch, Route } from 'react-router-dom';
 import UseAuth from '../../../hooks/UseAuth';
-import AdminRoute from '../../LoginRegister/AdminRoute/AdminRoute';
 import AddProducts from '../AddProducts/AddProducts';
 import AddReview from '../AddReview/AddReview';
 import MakeAdmin from '../MakeAdmin/MakeAdmin';
@@ -16,8 +15,6 @@ const Dashboard = () => {
     const [isActive, setActive] = useState(true);
     const { user, logout, admin } = UseAuth()
     const { url, path } = useRouteMatch()
-
-    // console.log(admin);
 
 
     const toggleClass = () => {
@@ -71,7 +68,7 @@ const Dashboard = () => {
                     </li>
 
 
-                    {user && <><li>
+                    {admin && <><li>
                         <Nav.Link as={Link} to={`${url}/manageAllOrders`}>
                             <i class='bx bx-user'></i>
                             <span class="links_name">Manage All Orders</span>

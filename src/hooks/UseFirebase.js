@@ -43,11 +43,9 @@ const UseFirebase = () => {
         // fetch(`https://polar-savannah-40370.herokuapp.com/users/admin@admin.com`)
         fetch(`https://polar-savannah-40370.herokuapp.com/users/${user.email}`)
             .then(res => res.json())
-            .then(data => { setAdmin(data.admin); })
+            .then(data => { setAdmin(data.admin) })
 
     }, [user.email])
-
-    console.log('tt', user, admin);
 
     // SIGN IN WITH USER AND EMAIL
     const signIn = (email, password, location, history) => {
@@ -111,8 +109,6 @@ const UseFirebase = () => {
     }
 
 
-    console.log(admin);
-
     return {
         RegisterUser,
         logout,
@@ -120,7 +116,8 @@ const UseFirebase = () => {
         isLoading,
         setIsLoading,
         user,
-        error
+        error,
+        admin
 
 
     }
